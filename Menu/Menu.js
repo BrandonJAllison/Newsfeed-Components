@@ -11,15 +11,30 @@ const menuButton = document.querySelector('.menu-button');
 
 menuButton.addEventListener('click', toggleMenu,);
 
-const menuItems = document.querySelectorAll('li');
-menuItems.forEach((currentValue) => {
-  currentValue.addEventListener('mouseover', function(e){
-      currentValue.style.color = "white";
-      e.stopPropagation();
-  })
-  currentValue.addEventListener('mouseleave', function(e){
-       currentValue.style.color = ("");   
-  })
+
   
+
+  class ListItem {
+    constructor(li) {
+      this.li = li;
+      this.li.addEventListener('mouseover',this.grow.bind(this));
+      
+      
+      this.li.addEventListener('mouseout', this.normal.bind(this));
+  
+      
+    }
+    grow() {
+      TweenMax.to(this.li, 2, {x:20, ease:Bounce.easeOut});
+    }
+    normal() {
+      TweenMax.to(this.li, 2, { x:-20, ease:Bounce.easeOut});
+    }
+  }
+  
+  let menuLists = document.querySelectorAll('.menu ul li');
+  //console.log(menuLists);
+  
+  menuLists.forEach(function(li){
+    return new ListItem(li);
   });
-  
